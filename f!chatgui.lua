@@ -114,7 +114,16 @@ end
 
 Send.MouseButton1Click:Connect(send)
 
+local id = 0
+
+local id_table = {}
+
 local function CreateTextBox(Message, Type)
+	
+	local currentID = id + 1
+	id = id + 1
+	
+	table.insert(id_table,currentID)
 	
 	-- // Variables
 	local Text
@@ -150,7 +159,7 @@ local function CreateTextBox(Message, Type)
 	local PlayerIcon = Instance.new("ImageLabel")
 	local PlayerText = Instance.new("TextLabel")
 	local PlayerName = Instance.new("TextLabel")
-
+	
 	TextChat.Name = "TextChat"
 	TextChat.Parent = ScrollChat
 	TextChat.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -195,9 +204,19 @@ local function CreateTextBox(Message, Type)
 	PlayerName.TextScaled = true
 	PlayerName.TextSize = 14.000
 	PlayerName.TextWrapped = true
-
-	task.wait(120)
-
+	
+	local ticks = 0
+	
+	while task.wait() do
+	ticks = ticks + 1
+	if id >= 20 or ticks >= 120*4 then 
+		id = 0
+		id_table[currentID] = nil
+		currentID = nil
+		break
+	end
+	end
+	
 	TextChat:Destroy() 
 
 	-- // Remove Data
