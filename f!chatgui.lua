@@ -239,10 +239,13 @@ dcsce.OnNewSystemMessage.OnClientEvent:Connect(function(m) CreateTextBox(m, "Sys
 
 local oldFunction, property
 oldFunction = hookfunction(game.StarterGui["SetCore"], function(v,v2)
+
 	local var1, var2 = v, v2
 	
 	if var1 == "ChatMakeSystemMessage" then
+		
 		CreateTextBox(var2, "Hook")
+		
 	end
 	
 	return oldFunction(v,v2)
