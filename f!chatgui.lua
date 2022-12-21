@@ -28,7 +28,7 @@ local Chatter = {
 	end,
 }
 	
-if not game:Loaded() then Chatter:Connect() end --brute force connect ig
+if not game:IsLoaded() then Chatter:Connect() end --brute force connect ig
 
 -- UI stuff
 
