@@ -3,8 +3,6 @@
 local Players = game:GetService("Players")
 local localplayer = Players.LocalPlayer
 
-local re,g = 20,0
-
 local StarterGui = game:GetService("StarterGui")
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -15,7 +13,7 @@ local dcsce = ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents",tru
 
 local Chatter = {
 	Connect = function()
-		dcsce.GetInitDataRequest:Connect()
+		dcsce.GetInitDataRequest:Connect() -- In case we aren't loaded
 	end,
 
 	Send = function(text,channel)
@@ -29,6 +27,8 @@ local Chatter = {
 		end
 	end,
 }
+	
+if not game:Loaded() then Chatter:Connect() end --brute force connect ig
 
 -- UI stuff
 
@@ -235,7 +235,7 @@ end)
 
 dcsce.OnNewSystemMessage.OnClientEvent:Connect(function(m) CreateTextBox(m, "SystemMessage") end)
 
---hooker for systemmessages
+--hooker for systemmessages [It isn't really that good. Or probably even working.]
 
 local oldFunction, property
 oldFunction = hookfunction(game.StarterGui["SetCore"], function(v,v2)
